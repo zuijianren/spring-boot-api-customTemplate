@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud Register</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <img src="" th:src="@{/images/TacoCloud.png}" />
+    <form id="loginForm" method="post">
+        <label for="username">用户名</label>
+        <input name="username" id="username" type="text">
+        <label for="userPassword" >密码</label>
+        <input name="userPassword" id="userPassword" type="password">
+        <label for="email">邮箱</label>
+        <input name="email" id="email" type="email">
+        <input type="button" onclick="login()" value="注册">
+    </form>
+<script type="text/javascript">
+    $.prototype.serializeObject = function() {
+        var a, o, h, i, e;
+        a = this.serializeArray();
+        o = {};
+        h = o.hasOwnProperty;
+        for (i = 0; i < a.length; i++) {
+            e = a[i];
+            if (!h.call(o, e.name)) {
+                o[e.name] = e.value;
+            }
+        }
+        return o;
+    }
+    function login(){
+        $.ajax({
+            contentType: "application/json;charset=utf8",
+            type: "post",
+            url: "/user/register",
+            dataType: "json",
+            data: JSON.stringify($("#loginForm").serializeObject()),
+            success: function (result){
+                console.log("success");
+                console.log(result)
+            },
+            error: function (result){
+                console.log(result);
+                console.log("error");
+            }
+
+        })
+    }
+</script>
+</body>
+</html>
